@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../services/api';
 import {
   Container,
   FilterContainer,
@@ -8,29 +9,13 @@ import {
 } from './styles';
 
 export default function Home() {
-  const tasks = [
-    {
-      id: 1,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-    {
-      id: 2,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-    {
-      id: 3,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-  ];
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    api.get('/tasks').then((response) => {
+      setTasks(response.data.tasks);
+    });
+  }, []);
 
   return (
     <Container>
