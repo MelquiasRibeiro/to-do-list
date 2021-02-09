@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Button } from '../details/styles';
 import { Container, Title, Description } from './styles';
 import api from '../../services/api';
+import notify from '../../utils/notify';
 
 export default function Create({ match }) {
   const [title, setTitle] = useState('');
@@ -20,7 +21,7 @@ export default function Create({ match }) {
       description,
     };
     api.post(`/tasks/${TaskId}`, data);
-
+    notify('Tarefa cadastrada com sucesso', 'sucess');
     history.push('/');
   }
 

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Button } from '../details/styles';
 import { Container, Title, Description } from './styles';
 import api from '../../services/api';
+import notify from '../../utils/notify';
 
 export default function Edit({ match }) {
   const [title, setTitle] = useState('');
@@ -27,7 +28,7 @@ export default function Edit({ match }) {
       description,
     };
     api.put(`/tasks/${TaskId}`, data);
-
+    notify('tarefa editada com sucess', 'sucess');
     history.push('/');
   }
 

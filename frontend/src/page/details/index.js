@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Container, ButtonsContainer, Button } from './styles';
 import api from '../../services/api';
+import notify from '../../utils/notify';
 
 export default function Details({ match }) {
   const [title, setTitle] = useState();
@@ -25,11 +26,13 @@ export default function Details({ match }) {
     const data = { finished: true };
     api.put(`/tasks/${TaskId}`, data);
     setStatus(true);
+    notify('Tarefa marcadada como concluída', 'sucess');
   }
   function handleUnCheck() {
     const data = { finished: false };
     api.put(`/tasks/${TaskId}`, data);
     setStatus(false);
+    notify('Tarefa marcadada como Em andamento ', 'sucess');
   }
 
   function handleDelete() {
