@@ -10,6 +10,14 @@ export const Container = styled.form`
   margin: 32px;
   height: 400px;
   align-items: flex-end;
+  > a {
+    align-self: flex-start;
+    margin-left: 16px;
+    transition: opacity 0.2s;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 `;
 
 export const Title = styled.input`

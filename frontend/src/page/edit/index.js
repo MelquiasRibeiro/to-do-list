@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import { Button } from '../details/styles';
 import { Container, Title, Description } from './styles';
 import api from '../../services/api';
@@ -34,6 +35,9 @@ export default function Edit({ match }) {
 
   return (
     <Container onSubmit={handleEdit}>
+      <Link to="/">
+        <FaArrowLeft color="#191920" size={24} />
+      </Link>
       <Title value={title} onChange={(e) => setTitle(e.target.value)} />
       <Description
         value={description}

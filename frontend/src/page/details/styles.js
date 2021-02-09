@@ -15,6 +15,14 @@ export const Container = styled.div`
   > p {
     margin: 16px 0 32px 8px;
   }
+  > a {
+    align-self: flex-start;
+    margin-left: 16px;
+    transition: opacity 0.2s;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 `;
 export const ButtonsContainer = styled.div`
   display: flex;

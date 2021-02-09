@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import { Container, ButtonsContainer, Button } from './styles';
 import api from '../../services/api';
 import notify from '../../utils/notify';
@@ -42,6 +43,9 @@ export default function Details({ match }) {
 
   return (
     <Container>
+      <Link to="/">
+        <FaArrowLeft color="#191920" size={24} />
+      </Link>
       <strong>{title}</strong>
       <p>{description}</p>
       <ButtonsContainer>

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import { Button } from '../details/styles';
 import { Container, Title, Description } from './styles';
 import api from '../../services/api';
@@ -27,6 +28,9 @@ export default function Create({ match }) {
 
   return (
     <Container onSubmit={handleEdit}>
+      <Link to="/">
+        <FaArrowLeft color="#191920" size={24} />
+      </Link>
       <Title
         required
         placeholder="Escolha uma título para sua Tarefa"
