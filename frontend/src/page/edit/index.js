@@ -1,42 +1,23 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from '../details/styles';
 import { Container, Title, Description } from './styles';
+import api from '../../services/api';
 
 export default function Edit({ match }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  const history = useHistory();
+
   const TaskId = Number(match.params.id);
 
-  const tasks = [
-    {
-      id: 1,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-    {
-      id: 2,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-    {
-      id: 3,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-  ];
-
-  const Task = tasks.find((t) => t.id === TaskId);
   useEffect(() => {
-    setTitle(Task.title);
-    setDescription(Task.description);
+    api.get(`/tasks/${TaskId}`).then((response) => {
+      setTitle(response.data.task.title);
+      setDescription(response.data.task.description);
+    });
   }, []);
 
   function handleEdit(e) {
@@ -45,8 +26,9 @@ export default function Edit({ match }) {
       title,
       description,
     };
+    api.put(`/tasks/${TaskId}`, data);
 
-    console.log(data);
+    history.push('/');
   }
 
   return (

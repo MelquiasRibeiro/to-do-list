@@ -1,46 +1,72 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Container, ButtonsContainer, Button } from './styles';
+import api from '../../services/api';
 
 export default function Details({ match }) {
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [status, setStatus] = useState();
+
+  const history = useHistory();
+
   const TaskId = Number(match.params.id);
 
-  const tasks = [
-    {
-      id: 1,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-    {
-      id: 2,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-    {
-      id: 3,
-      title: 'Estudar CSS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elitCommodi perferendis autem incidunt similique itaque ex architecto rem repellendus nemo. Explicabo veritatis,eum sunt veniam deseruntdolore praesentium iusto doloribus suscipit?',
-      finished: true,
-    },
-  ];
+  useEffect(() => {
+    api.get(`/tasks/${TaskId}`).then((response) => {
+      setTitle(response.data.task.title);
+      setDescription(response.data.task.description);
+      setStatus(response.data.task.finished);
+    });
+  }, []);
 
-  const Task = tasks.find((t) => t.id === TaskId);
+  function handleCheck() {
+    const data = { finished: true };
+    api.put(`/tasks/${TaskId}`, data);
+    setStatus(true);
+  }
+  function handleUnCheck() {
+    const data = { finished: false };
+    api.put(`/tasks/${TaskId}`, data);
+    setStatus(false);
+  }
+
+  function handleDelete() {
+    api.delete(`/tasks/${TaskId}`);
+    history.push('/');
+  }
+
   return (
     <Container>
-      <strong>{Task.title}</strong>
-      <p>{Task.description}</p>
+      <strong>{title}</strong>
+      <p>{description}</p>
       <ButtonsContainer>
         <Link to={`/edit/${TaskId}`}>
           <Button color="#FFC23D">Editar</Button>
         </Link>
-        <Button color="#DC3B45">Excluir</Button>
-        <Button color="#4AA746">Finalizar</Button>
+        <Button color="#DC3B45" onClick={() => handleDelete()}>
+          Excluir
+        </Button>
+        {status ? (
+          <Button
+            color="#0D78F9"
+            onClick={() => {
+              handleUnCheck();
+            }}
+          >
+            Reabrir
+          </Button>
+        ) : (
+          <Button
+            color="#4AA746"
+            onClick={() => {
+              handleCheck();
+            }}
+          >
+            Finalizar
+          </Button>
+        )}
       </ButtonsContainer>
     </Container>
   );
