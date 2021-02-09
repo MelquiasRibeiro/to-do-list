@@ -1,4 +1,4 @@
-import { Model, Sequelize } from "sequelize";
+import { Model, Sequelize } from 'sequelize';
 
 class User extends Model {
   static init(sequelize) {
@@ -6,6 +6,7 @@ class User extends Model {
       {
         title: Sequelize.STRING,
         description: Sequelize.STRING,
+        finished: Sequelize.BOOLEAN,
       },
       {
         sequelize,
