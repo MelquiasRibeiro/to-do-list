@@ -1,10 +1,10 @@
-import React from 'react'
-import { Container} from './styles'
+import React from 'react';
+import { Container } from './styles';
 
 export default function Details() {
-    return (
-        <Container>
-            <hi>Details</hi>
-        </Container>
-    )
+  return (
+    <Container>
+      <hi>Details</hi>
+    </Container>
+  );
 }
