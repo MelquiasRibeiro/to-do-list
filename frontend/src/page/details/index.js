@@ -36,7 +36,7 @@ export default function Details({ match }) {
       <strong>{Task.title}</strong>
       <p>{Task.description}</p>
       <ButtonsContainer>
-        <Link to={`/editar/${TaskId}`}>
+        <Link to={`/edit/${TaskId}`}>
           <Button color="#FFC23D">Editar</Button>
         </Link>
         <Button color="#DC3B45">Excluir</Button>
